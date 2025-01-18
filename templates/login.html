@@ -1,20 +1,40 @@
 <!DOCTYPE html>
 <html>
+
+<head>
+    <title>HTML Login Form</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+
 <body>
+    <div class="main">
+        <h3>Enter your login credentials</h3>
+        <form action="/login" method="POST"> 
+            <label for="first">
+                Username:
+            </label>
+            <input type="text" id="first" name="first" 
+                placeholder="Enter your Username" required>
 
-<h1>Welcome hehe</h1>
-<p>This is where our frontend will start, link js etc</p>
-<button type="button" onclick="concatenateStrings()">Get the coolest team members</button>
+            <label for="password">
+                Password:
+            </label>
+            <input type="password" id="password" name="password" 
+                placeholder="Enter your Password" required>
 
-<h2>Result:</h2>
-<p id="result">No team members yet</p>
-<script>
-    async function concatenateStrings() {
-        const response = await fetch(`/concatenate`);
-        const data = await response.json();
-
-        document.getElementById('result').textContent = `Result: ${data.result}`;
-    }
-</script>
+            <div class="wrap">
+                <button type="submit">
+                    Submit
+                </button>
+            </div>
+        </form>
+        <!-- For future reference if we ever need to add this-->
+        <!-- <p>Not registered? -->
+            <!-- <a href="#" style="text-decoration: none;">
+                Create an account
+            </a> -->
+        <!-- </p> -->
+    </div>
 </body>
+
 </html>
