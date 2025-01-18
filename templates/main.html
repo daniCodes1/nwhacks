@@ -233,7 +233,7 @@
         </div>
 
         <div class="button-container">
-            <a href="/timeline" class="timeline-btn">View Timeline</a>
+            <a href="/timeline" class="timeline-btn" onclick="confirmNavigation(event)">View Timeline</a>
         </div>
         
         
@@ -284,7 +284,15 @@
         }
 
         
-        
+        function confirmNavigation(event) {
+            event.preventDefault();
+
+            const userConfirmed = confirm("Are you sure you want to proceed? Unsaved data will be lost.");
+            
+            if (userConfirmed) {
+                window.location.href = event.target.href;
+            }
+        }
 
         function submitData() {
             jobDescription = document.getElementById("job-description").value.trim();
