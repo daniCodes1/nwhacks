@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Timeline</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+            margin: 0;
+        }
+
+        .timeline-container {
+            position: relative;
+            width: 90%; 
+            max-width: 1200px;  
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-top: 2px solid #333;
+            margin-top: 20px; 
+        }
+
+        .timeline-dot {
+            width: 30px;  
+            height: 30px;  
+            border-radius: 50%;
+            background-color: #007bff;
+            cursor: pointer;
+            position: absolute; 
+            top: -14px; 
+            transform: translateX(-50%); 
+            z-index: 2;
+        }
+
+        .timeline-dot:hover {
+            background-color: #0056b3;
+        }
+
+        .popup {
+            display: none;
+            position: absolute;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            max-width: 300px;
+            min-width: 200px;
+        }
+
+        .popup h3 {
+            margin: 0;
+            color: #333;
+        }
+
+        .popup p {
+            margin: 5px 0;
+        }
+
+        .close-btn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        .close-btn:hover {
+            background-color: #e04343;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="timeline-container">
+        <!-- Timeline dots -->
+        <div class="timeline-dot" style="left: 0%;" data-info="Point 1: Name: Event 1, Description: This is the first event."></div>
+        <div class="timeline-dot" style="left: 11%;" data-info="Point 2: Name: Event 2, Description: This is the second event."></div>
+        <div class="timeline-dot" style="left: 22%;" data-info="Point 3: Name: Event 3, Description: This is the third event."></div>
+        <div class="timeline-dot" style="left: 33%;" data-info="Point 4: Name: Event 4, Description: This is the fourth event."></div>
+        <div class="timeline-dot" style="left: 44%;" data-info="Point 5: Name: Event 5, Description: This is the fifth event."></div>
+        <div class="timeline-dot" style="left: 55%;" data-info="Point 6: Name: Event 6, Description: This is the sixth event."></div>
+        <div class="timeline-dot" style="left: 66%;" data-info="Point 7: Name: Event 7, Description: This is the seventh event."></div>
+        <div class="timeline-dot" style="left: 77%;" data-info="Point 8: Name: Event 8, Description: This is the eighth event."></div>
+        <div class="timeline-dot" style="left: 88%;" data-info="Point 9: Name: Event 9, Description: This is the ninth event."></div>
+        <div class="timeline-dot" style="left: 100%;" data-info="Point 10: Name: Event 10, Description: This is the tenth event."></div>
+    </div>
+
+    <!-- Popup box -->
+    <div class="popup" id="popup">
+        <h3 id="popup-title">Event Details</h3>
+        <p id="popup-info"></p>
+        <button class="close-btn" onclick="closePopup()">Close</button>
+    </div>
+
+    <script>
+        const dots = document.querySelectorAll('.timeline-dot');
+        const popup = document.getElementById('popup');
+        const popupTitle = document.getElementById('popup-title');
+        const popupInfo = document.getElementById('popup-info');
+
+       
+        dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+        const info = dot.getAttribute('data-info');
+        const [title, ...details] = info.split(', ');
+
+        popupTitle.textContent = title;
+        popupInfo.innerHTML = details.join('<br>');
+
+        // Temporarily set display to 'block' so we can get its dimensions
+        popup.style.display = 'block';
+        
+        const dotRect = dot.getBoundingClientRect();
+        const popupWidth = popup.offsetWidth;
+        const popupHeight = popup.offsetHeight;
+        const dotCenter = dotRect.left + (dotRect.width / 2);
+
+        let leftOffset = dotCenter - (popupWidth / 2);
+        let topOffset = dotRect.top - popupHeight - 10;
+
+        const rightEdge = leftOffset + popupWidth;
+        const windowWidth = window.innerWidth;
+
+        // Prevent popup from overflowing to the right
+        if (rightEdge > windowWidth) {
+            leftOffset = windowWidth - popupWidth - 10;
+        }
+
+        // Prevent popup from going out of bounds on the left
+        if (leftOffset < 0) {
+            leftOffset = 10;
+        }
+
+        // Prevent popup from going out of bounds on top
+        if (topOffset < 0) {
+            topOffset = dotRect.bottom + 10;  // Place below the dot if top is too high
+        }
+
+        // Apply the calculated position
+        popup.style.left = `${leftOffset}px`;
+        popup.style.top = `${topOffset}px`;
+
+        // Now make it visible
+        popup.style.display = 'block';
+    });
+});
+
+
+
+
+
+
+        function closePopup() {
+            popup.style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
