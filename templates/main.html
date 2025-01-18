@@ -181,6 +181,12 @@
 
         <div class="input-group">
             <label for="resume">Resume / Cover Letter:</label>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                <input type="radio" id="option-resume" name="document-type" value="Resume">
+                <label for="option-resume">Resume</label>
+                <input type="radio" id="option-coverletter" name="document-type" value="Cover Letter">
+                <label for="option-coverletter">Cover Letter</label>
+            </div>
             <textarea id="resume" placeholder="Paste your resume or cover letter here..."></textarea>
         </div>
 
@@ -215,6 +221,7 @@
             
             const preferencesBox = document.getElementById("preferences");
             const existingPreferences = Array.from(preferencesBox.children).map(child => child.id);
+            console.log(existingPreferences);
 
             
 
@@ -241,6 +248,49 @@
                 alert("This preference is already added.");
             }
         }
+
+        
+        
+
+        function submitData() {
+            jobDescription = document.getElementById("job-description").value.trim();
+            const resume = document.getElementById("resume").value.trim();
+            const userName = name;
+            const preferences = Array.from(document.getElementById("preferences").children).map(child => child.id);
+            const timestamp = new Date().toISOString();
+            const documentType = document.querySelector('input[name="document-type"]:checked');
+
+
+        
+       
+        
+            if (!documentType) {
+                alert("Please select either 'Resume' or 'Cover Letter'.");
+                return;
+            }
+
+            if (!userName || !jobDescription || !resume) {
+                alert("Please fill out all the required fields.");
+                return;
+            }
+
+            const data = {
+                userName: userName,
+                submittedAt: timestamp,
+                preferences: preferences,
+        
+                textContent: {
+                    jobDescription: jobDescription,
+                    documentType: documentType.value,
+                    inputText: resume
+                }
+            
+            
+            };
+        }
+
+
+        
     </script>
 </body>
 </html>
