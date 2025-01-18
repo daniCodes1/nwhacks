@@ -9,14 +9,15 @@ app = Flask(__name__)
 def index():
     return render_template('login.html')
 
-@app.route("/concatenate")
-def concatenate():
-    # Could also just get it from frontend just an eg of routing
-    str1 = "Adrian"
-    str2 = "Michael"
-    str3 = "Rishabh"
-    result = str1 + " " + str2 + " " + str3
-    return jsonify({"result": result})
+@app.route('/login', methods=['POST'])
+def handle_login():
+    # In case we ever need this info:
+    # username = request.form.get('first')
+    # password = request.form.get('password')
+
+    # Perform more validation or authentication here if needed
+    return render_template('main.html')  # Render the main.html page
+
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=8080)    
