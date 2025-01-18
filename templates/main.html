@@ -256,8 +256,7 @@
             
             const preferencesBox = document.getElementById("preferences");
             const existingPreferences = Array.from(preferencesBox.children).map(child => child.id);
-            console.log(existingPreferences);
-
+          
             
 
             if (!existingPreferences.includes(data)) {
@@ -313,16 +312,14 @@
                 "name": userName,
                 "time_of_upload": timestamp,
                 "job_position": "software engineer",
-                "preferences": preferences,
         
-                "textContent": {
+                "text_content": {
                     "job_description": jobDescription,
                     "type_of_document": documentType.value,
                     "cover_letter": resume
                 }
             };
 
-            console.log(data)
         }
 
         document.querySelector(".submit-btn").addEventListener("click", submitData);
