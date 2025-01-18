@@ -134,12 +134,12 @@
         <div class="preferences-section">
             <label for="preferences">Preferences:</label>
             <div class="preferences-box" id="preferences" ondrop="drop(event)" ondragover="allowDrop(event)">
-                <span id="preferences-placeholder">Drag and drop up to 3 preferences here</span>
+                
             </div>
             <div class="available-preferences">
-                <div class="draggable-item" draggable="true" ondragstart="drag(event)" id="preference-1">Teamwork</div>
-                <div class="draggable-item" draggable="true" ondragstart="drag(event)" id="preference-2">Leadership</div>
-                <div class="draggable-item" draggable="true" ondragstart="drag(event)" id="preference-3">Problem-solving</div>
+                <div class="draggable-item" draggable="true" ondragstart="drag(event)" id="Key words hit">Key words hit</div>
+                <div class="draggable-item" draggable="true" ondragstart="drag(event)" id="Sentiment">Sentiment</div>
+                <div class="draggable-item" draggable="true" ondragstart="drag(event)" id="ATS-Friendly">ATS-Friendly</div>
             </div>
         </div>
 
@@ -159,28 +159,27 @@
             event.preventDefault();
             const data = event.dataTransfer.getData("text");
             const draggedElement = document.getElementById(data);
-
+            
             const preferencesBox = document.getElementById("preferences");
             const existingPreferences = Array.from(preferencesBox.children).map(child => child.id);
+            
 
             if (!existingPreferences.includes(data)) {
                 if (preferencesBox.children.length <= 3) {
                     const clonedElement = draggedElement.cloneNode(true);
-                    clonedElement.id = "cloned-" + data;
+                    clonedElement.id = data;
 
                     const removeButton = document.createElement("button");
                     removeButton.innerText = "X";
                     removeButton.className = "remove-btn";
                     removeButton.onclick = function () {
                         preferencesBox.removeChild(clonedElement);
-                        if (preferencesBox.children.length === 0) {
-                            document.getElementById("preferences-placeholder").style.display = "block";
-                        }
+        
                     };
 
                     clonedElement.appendChild(removeButton);
                     preferencesBox.appendChild(clonedElement);
-                    document.getElementById("preferences-placeholder").style.display = "none";
+                    
                 } else {
                     alert("You can only add up to 3 preferences.");
                 }
