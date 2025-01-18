@@ -19,5 +19,9 @@ def handle_login():
     return render_template('main.html', name=username)  # Render the main.html page
 
 
+@app.route('/timeline')
+def timeline():
+    return render_template('timeline.html')
+
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=8080)    
