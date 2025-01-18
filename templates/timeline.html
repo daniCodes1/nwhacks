@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +15,7 @@
 
         body {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -21,33 +23,49 @@
             margin: 0;
         }
 
+        .timeline-title {
+            margin-top: 55px;
+            font-size: 70px;
+            font-weight: 800;
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            -webkit-background-clip: text; 
+            color: transparent;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+        }
+
         .timeline-container {
             position: relative;
-            width: 90%; 
-            max-width: 1200px;  
-            height: 150px;
+            width: 100%;
+            max-width: 1200px;
+            height: 50px;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             border-top: 2px solid #333;
-            margin-top: 20px; 
+            margin-top: auto;
+            margin-bottom: auto;
+            padding: 0 10px;
         }
 
         .timeline-dot {
-            width: 30px;  
-            height: 30px;  
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             background-color: #007bff;
             cursor: pointer;
-            position: absolute; 
-            top: -14px; 
-            transform: translateX(-50%); 
-            z-index: 2;
+            position: relative;
+            transform: translateY(-80%);
         }
 
         .timeline-dot:hover {
             background-color: #0056b3;
         }
+
 
         .popup {
             display: none;
@@ -60,11 +78,6 @@
             z-index: 10;
             max-width: 300px;
             min-width: 200px;
-        }
-
-        .popup h3 {
-            margin: 0;
-            color: #333;
         }
 
         .popup p {
@@ -85,94 +98,93 @@
         .close-btn:hover {
             background-color: #e04343;
         }
-
     </style>
 </head>
-<body>
 
+<body>
+    <h1 class="timeline-title">Timeline</h1>
     <div class="timeline-container">
         <!-- Timeline dots -->
-        <div class="timeline-dot" style="left: 0%;" data-info="Point 1: Name: Event 1, Description: This is the first event."></div>
-        <div class="timeline-dot" style="left: 11%;" data-info="Point 2: Name: Event 2, Description: This is the second event."></div>
-        <div class="timeline-dot" style="left: 22%;" data-info="Point 3: Name: Event 3, Description: This is the third event."></div>
-        <div class="timeline-dot" style="left: 33%;" data-info="Point 4: Name: Event 4, Description: This is the fourth event."></div>
-        <div class="timeline-dot" style="left: 44%;" data-info="Point 5: Name: Event 5, Description: This is the fifth event."></div>
-        <div class="timeline-dot" style="left: 55%;" data-info="Point 6: Name: Event 6, Description: This is the sixth event."></div>
-        <div class="timeline-dot" style="left: 66%;" data-info="Point 7: Name: Event 7, Description: This is the seventh event."></div>
-        <div class="timeline-dot" style="left: 77%;" data-info="Point 8: Name: Event 8, Description: This is the eighth event."></div>
-        <div class="timeline-dot" style="left: 88%;" data-info="Point 9: Name: Event 9, Description: This is the ninth event."></div>
-        <div class="timeline-dot" style="left: 100%;" data-info="Point 10: Name: Event 10, Description: This is the tenth event."></div>
+        <div class="timeline-dot"
+            data-info='{"documentName": "Doc 1", "positionName": "Position 1", "rating": "5/5", "timeOfUpload": "2025-01-18"}'>
+        </div>
+        <div class="timeline-dot"
+            data-info='{"documentName": "Doc 2", "positionName": "Position 2", "rating": "4.5/5", "timeOfUpload": "2025-01-18"}'>
+        </div>
+        <div class="timeline-dot"
+            data-info='{"documentName": "Doc 3", "positionName": "Position 3", "rating": "4/5", "timeOfUpload": "2025-01-18"}'>
+        </div>
+        <div class="timeline-dot"
+            data-info='{"documentName": "Doc 4", "positionName": "Position 4", "rating": "4.5/5", "timeOfUpload": "2025-01-18"}'>
+        </div>
+        <div class="timeline-dot"
+            data-info='{"documentName": "Doc 5", "positionName": "Position 5", "rating": "5/5", "timeOfUpload": "2025-01-18"}'>
+        </div>
+        <div class="timeline-dot"
+            data-info='{"documentName": "Doc 6", "positionName": "Position 6", "rating": "3/5", "timeOfUpload": "2025-01-18"}'>
+        </div>
+        <div class="timeline-dot"
+            data-info='{"documentName": "Doc 7", "positionName": "Position 7", "rating": "4/5", "timeOfUpload": "2025-01-18"}'>
+        </div>
+        <div class="timeline-dot"
+            data-info='{"documentName": "Doc 8", "positionName": "Position 8", "rating": "3.5/5", "timeOfUpload": "2025-01-18"}'>
+        </div>
+        <div class="timeline-dot"
+            data-info='{"documentName": "Doc 9", "positionName": "Position 9", "rating": "5/5", "timeOfUpload": "2025-01-18"}'>
+        </div>
+        <div class="timeline-dot"
+            data-info='{"documentName": "Doc 10", "positionName": "Position 10", "rating": "4.5/5", "timeOfUpload": "2025-01-18"}'>
+        </div>
     </div>
 
-    <!-- Popup box -->
+    <!-- Popup -->
     <div class="popup" id="popup">
-        <h3 id="popup-title">Event Details</h3>
-        <p id="popup-info"></p>
+        <p id="popup-document-name"></p>
+        <p id="popup-position-name"></p>
+        <p id="popup-rating"></p>
+        <p id="popup-time-of-upload"></p>
         <button class="close-btn" onclick="closePopup()">Close</button>
     </div>
 
     <script>
         const dots = document.querySelectorAll('.timeline-dot');
         const popup = document.getElementById('popup');
-        const popupTitle = document.getElementById('popup-title');
-        const popupInfo = document.getElementById('popup-info');
+        const popupDocumentName = document.getElementById('popup-document-name');
+        const popupPositionName = document.getElementById('popup-position-name');
+        const popupRating = document.getElementById('popup-rating');
+        const popupTimeOfUpload = document.getElementById('popup-time-of-upload');
 
-       
         dots.forEach(dot => {
-    dot.addEventListener('click', () => {
-        const info = dot.getAttribute('data-info');
-        const [title, ...details] = info.split(', ');
+            dot.addEventListener('click', () => {
+                const info = JSON.parse(dot.getAttribute('data-info'));
 
-        popupTitle.textContent = title;
-        popupInfo.innerHTML = details.join('<br>');
+                popupDocumentName.textContent = `Document Name: ${info.documentName}`;
+                popupPositionName.textContent = `Position Name: ${info.positionName}`;
+                popupRating.textContent = `Rating: ${info.rating}`;
+                popupTimeOfUpload.textContent = `Time of Upload: ${info.timeOfUpload}`;
 
-        // Temporarily set display to 'block' so we can get its dimensions
-        popup.style.display = 'block';
-        
-        const dotRect = dot.getBoundingClientRect();
-        const popupWidth = popup.offsetWidth;
-        const popupHeight = popup.offsetHeight;
-        const dotCenter = dotRect.left + (dotRect.width / 2);
+                const dotRect = dot.getBoundingClientRect();
+                const popupWidth = popup.offsetWidth;
+                const popupHeight = popup.offsetHeight;
+                const dotCenter = dotRect.left + (dotRect.width / 2);
 
-        let leftOffset = dotCenter - (popupWidth / 2);
-        let topOffset = dotRect.top - popupHeight - 10;
+                let leftOffset = dotCenter - (popupWidth / 2);
+                let topOffset = dotRect.top - popupHeight - 10;
 
-        const rightEdge = leftOffset + popupWidth;
-        const windowWidth = window.innerWidth;
+                if (leftOffset < 10) leftOffset = 10;
+                if (leftOffset + popupWidth > window.innerWidth) leftOffset = window.innerWidth - popupWidth - 10;
+                if (topOffset < 0) topOffset = dotRect.bottom + 10;
 
-        // Prevent popup from overflowing to the right
-        if (rightEdge > windowWidth) {
-            leftOffset = windowWidth - popupWidth - 10;
-        }
-
-        // Prevent popup from going out of bounds on the left
-        if (leftOffset < 0) {
-            leftOffset = 10;
-        }
-
-        // Prevent popup from going out of bounds on top
-        if (topOffset < 0) {
-            topOffset = dotRect.bottom + 10;  // Place below the dot if top is too high
-        }
-
-        // Apply the calculated position
-        popup.style.left = `${leftOffset}px`;
-        popup.style.top = `${topOffset}px`;
-
-        // Now make it visible
-        popup.style.display = 'block';
-    });
-});
-
-
-
-
-
+                popup.style.left = `${leftOffset}px`;
+                popup.style.top = `${topOffset}px`;
+                popup.style.display = 'block';
+            });
+        });
 
         function closePopup() {
             popup.style.display = 'none';
         }
     </script>
-
 </body>
+
 </html>
