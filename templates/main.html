@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Evaluator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .input-group textarea {
+            width: 100%;
+            height: 120px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+            font-size: 16px;
+        }
+
+        .preferences-section {
+            margin-bottom: 20px;
+        }
+
+        .preferences-section label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .preferences-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px dashed #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            height: 100px;
+            position: relative;
+        }
+
+        .preferences-box .draggable-item {
+            margin-right: 10px;
+        }
+
+        .draggable-item {
+            padding: 10px 15px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            cursor: grab;
+            user-select: none;
+        }
+
+        .draggable-item .remove-btn {
+            margin-left: 10px;
+            background: #ff4d4d;
+            border: none;
+            border-radius: 3px;
+            color: white;
+            cursor: pointer;
+            font-size: 12px;
+            padding: 2px 5px;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #007bff;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Portfolio Evaluator</h1>
+
+        <div class="input-group">
+            <label for="job-description">Job Description:</label>
+            <textarea id="job-description" placeholder="Paste the job description here..."></textarea>
+        </div>
+
+        <div class="input-group">
+            <label for="resume">Resume / Cover Letter:</label>
+            <textarea id="resume" placeholder="Paste your resume or cover letter here..."></textarea>
+        </div>
+
+        <div class="preferences-section">
+            <label for="preferences">Preferences:</label>
+            <div class="preferences-box" id="preferences" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <span id="preferences-placeholder">Drag and drop up to 3 preferences here</span>
+            </div>
+            <div class="available-preferences">
+                <div class="draggable-item" draggable="true" ondragstart="drag(event)" id="preference-1">Teamwork</div>
+                <div class="draggable-item" draggable="true" ondragstart="drag(event)" id="preference-2">Leadership</div>
+                <div class="draggable-item" draggable="true" ondragstart="drag(event)" id="preference-3">Problem-solving</div>
+            </div>
+        </div>
+
+        <button class="submit-btn">Submit</button>
+    </div>
+
+    <script>
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function drag(event) {
+            event.dataTransfer.setData("text", event.target.id);
+        }
+
+        function drop(event) {
+            event.preventDefault();
+            const data = event.dataTransfer.getData("text");
+            const draggedElement = document.getElementById(data);
+
+            const preferencesBox = document.getElementById("preferences");
+            const existingPreferences = Array.from(preferencesBox.children).map(child => child.id);
+
+            if (!existingPreferences.includes(data)) {
+                if (preferencesBox.children.length <= 3) {
+                    const clonedElement = draggedElement.cloneNode(true);
+                    clonedElement.id = "cloned-" + data;
+
+                    const removeButton = document.createElement("button");
+                    removeButton.innerText = "X";
+                    removeButton.className = "remove-btn";
+                    removeButton.onclick = function () {
+                        preferencesBox.removeChild(clonedElement);
+                        if (preferencesBox.children.length === 0) {
+                            document.getElementById("preferences-placeholder").style.display = "block";
+                        }
+                    };
+
+                    clonedElement.appendChild(removeButton);
+                    preferencesBox.appendChild(clonedElement);
+                    document.getElementById("preferences-placeholder").style.display = "none";
+                } else {
+                    alert("You can only add up to 3 preferences.");
+                }
+            } else {
+                alert("This preference is already added.");
+            }
+        }
+    </script>
+</body>
+</html>
