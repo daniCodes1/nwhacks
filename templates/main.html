@@ -8,7 +8,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <style>
-
         * {
             margin: 0;
             padding: 0;
@@ -293,7 +292,7 @@
             const resume = document.getElementById("resume").value.trim();
             const userName = name;
             const preferences = Array.from(document.getElementById("preferences").children).map(child => child.id);
-            const timestamp = new Date().toISOString();
+            const timestamp = new Date().toString();
             const documentType = document.querySelector('input[name="document-type"]:checked');
 
 
@@ -305,21 +304,21 @@
                 return;
             }
 
-            if (!userName || !jobDescription || !resume) {
+            if (!jobDescription || !resume) {
                 alert("Please fill out all the required fields.");
                 return;
             }
 
             const data = {
-                name: userName,
-                time_of_upload: timestamp,
-                job_position: "software engineer",
-                preferences: preferences,
+                "name": userName,
+                "time_of_upload": timestamp,
+                "job_position": "software engineer",
+                "preferences": preferences,
         
-                textContent: {
-                    jobDescription: jobDescription,
-                    documentType: documentType.value,
-                    inputText: resume
+                "textContent": {
+                    "job_description": jobDescription,
+                    "type_of_document": documentType.value,
+                    "cover_letter": resume
                 }
             };
         }
