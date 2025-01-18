@@ -294,7 +294,7 @@
             }
         }
 
-        function submitData() {
+        async function submitData() {
             jobDescription = document.getElementById("job-description").value.trim();
             const resume = document.getElementById("resume").value.trim();
             const userName = name;
@@ -328,7 +328,24 @@
                 }
             };
 
+            try {
+                const response = await fetch("/upload", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            const responseData = await response.json();
+            alert("Data submitted successfully!");
+            console.log(responseData);
+            } catch (error) {
+            console.error("Error submitting data:", error);
+            }
         }
+
+        
 
         document.querySelector(".submit-btn").addEventListener("click", submitData);
 
