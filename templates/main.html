@@ -304,7 +304,7 @@
                 return;
             }
 
-            if (!jobDescription || !resume) {
+            if (!jobDescription || !resume || preferences.length === 0) {
                 alert("Please fill out all the required fields.");
                 return;
             }
@@ -321,6 +321,8 @@
                     "cover_letter": resume
                 }
             };
+
+            console.log(data)
         }
 
         document.querySelector(".submit-btn").addEventListener("click", submitData);
