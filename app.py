@@ -7,7 +7,7 @@ app = Flask(__name__)
 # Display your index page
 @app.route("/")
 def index():
-    return render_template('index.html')
+    return render_template('login.html')
 
 @app.route("/concatenate")
 def concatenate():
