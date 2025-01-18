@@ -1,5 +1,5 @@
 # app.py
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask import jsonify
 
 app = Flask(__name__)
@@ -12,11 +12,11 @@ def index():
 @app.route('/login', methods=['POST'])
 def handle_login():
     # In case we ever need this info:
-    # username = request.form.get('first')
-    # password = request.form.get('password')
+    username = request.form.get('first')
+    password = request.form.get('password')
 
     # Perform more validation or authentication here if needed
-    return render_template('main.html')  # Render the main.html page
+    return render_template('main.html', name=username)  # Render the main.html page
 
 
 if __name__ == "__main__":
