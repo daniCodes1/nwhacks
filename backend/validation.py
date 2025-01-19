@@ -18,14 +18,13 @@ app = FastAPI()
 app.include_router(db_router)
 
 class text_content(BaseModel):
-    document_name : str
     type_of_document: str
     job_description: str
     cover_letter: str
 
 class schema_object(BaseModel):
     name: str
-    time_of_upload: datetime
+    time_of_upload: str
     job_position: str
     text_content:text_content
 
@@ -48,7 +47,7 @@ async def process_json_object(response: Response, schema: schema_object):
     #responds with metrics json
     user_json = {} 
     user_json['user_name'] = schema.name
-    user_json['user_upload_time'] = schema.time_of_upload.isoformat()
+    user_json['user_upload_time'] = schema.time_of_upload
     user_json['user_job_position'] = schema.job_position
 
     chat_response_obj = json.loads(chat_response)
@@ -77,9 +76,3 @@ async def ask_chat(job_position: str, job_description: str, cover_letter_text: s
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8001)
-
-    
-
-
-
-
