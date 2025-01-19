@@ -19,25 +19,30 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f4f4f9;
+            /* background-color: rgba(128, 0, 128, 0.4); */
+            background: linear-gradient(135deg, #48639C, #4C4C9D, #712F79);
+            background-size: 400% 400%;
+            animation: gradientShift 10s ease infinite;
             margin: 0;
         }
 
+
         .timeline-title {
             margin-top: 55px;
-            font-size: 70px;
+            font-size: 120px;
             font-weight: 800;
             text-align: center;
-            color: #007bff;
+            /* color: #007bff; */
             margin-bottom: 20px;
             letter-spacing: 2px;
             text-transform: uppercase;
-            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            background: linear-gradient(135deg, #c190c6, #6969a3, #c190c6);
             -webkit-background-clip: text; 
-            color: transparent;
+            color: transparent; 
             text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
         }
 
+        
         .timeline-container {
             position: relative;
             width: 100%;
@@ -85,7 +90,7 @@
         }
 
         .close-btn {
-            background-color: #ff4d4d;
+            background-color: #712F79;
             color: white;
             border: none;
             border-radius: 3px;
@@ -96,7 +101,7 @@
         }
 
         .close-btn:hover {
-            background-color: #e04343;
+            background-color: #6969a3;
         }
     </style>
 </head>
@@ -104,37 +109,11 @@
 <body>
     <h1 class="timeline-title">Timeline</h1>
     <div class="timeline-container">
-        <!-- Timeline dots -->
-        <div class="timeline-dot"
-            data-info='{"documentName": "Doc 1", "positionName": "Position 1", "rating": "5/5", "timeOfUpload": "2025-01-18"}'>
+        {% for item in timeline_data %}
+        <div class="timeline-dot" 
+             data-info='{"documentName": "{{ item.documentName }}", "positionName": "{{ item.positionName }}", "rating": "{{ item.rating }}", "timeOfUpload": "{{ item.timeOfUpload }}"}'>
         </div>
-        <div class="timeline-dot"
-            data-info='{"documentName": "Doc 2", "positionName": "Position 2", "rating": "4.5/5", "timeOfUpload": "2025-01-18"}'>
-        </div>
-        <div class="timeline-dot"
-            data-info='{"documentName": "Doc 3", "positionName": "Position 3", "rating": "4/5", "timeOfUpload": "2025-01-18"}'>
-        </div>
-        <div class="timeline-dot"
-            data-info='{"documentName": "Doc 4", "positionName": "Position 4", "rating": "4.5/5", "timeOfUpload": "2025-01-18"}'>
-        </div>
-        <div class="timeline-dot"
-            data-info='{"documentName": "Doc 5", "positionName": "Position 5", "rating": "5/5", "timeOfUpload": "2025-01-18"}'>
-        </div>
-        <div class="timeline-dot"
-            data-info='{"documentName": "Doc 6", "positionName": "Position 6", "rating": "3/5", "timeOfUpload": "2025-01-18"}'>
-        </div>
-        <div class="timeline-dot"
-            data-info='{"documentName": "Doc 7", "positionName": "Position 7", "rating": "4/5", "timeOfUpload": "2025-01-18"}'>
-        </div>
-        <div class="timeline-dot"
-            data-info='{"documentName": "Doc 8", "positionName": "Position 8", "rating": "3.5/5", "timeOfUpload": "2025-01-18"}'>
-        </div>
-        <div class="timeline-dot"
-            data-info='{"documentName": "Doc 9", "positionName": "Position 9", "rating": "5/5", "timeOfUpload": "2025-01-18"}'>
-        </div>
-        <div class="timeline-dot"
-            data-info='{"documentName": "Doc 10", "positionName": "Position 10", "rating": "4.5/5", "timeOfUpload": "2025-01-18"}'>
-        </div>
+        {% endfor %}
     </div>
 
     <!-- Popup -->
