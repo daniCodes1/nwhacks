@@ -22,6 +22,7 @@ def handle_login():
 @app.route('/timeline')
 def timeline():
     # Get timeline data --> realistically we will end up getting the data from the backend
+<<<<<<< HEAD
     # data = [
     #     {"documentName": "Doc 1", "positionName": "Position 1", "rating": "5/5", "timeOfUpload": "2025-01-18"},
     #     {"documentName": "Doc 2", "positionName": "Position 2", "rating": "4.5/5", "timeOfUpload": "2025-01-18"},
@@ -34,6 +35,20 @@ def timeline():
     #     {"documentName": "Doc 9", "positionName": "Position 4", "rating": "4.5/5", "timeOfUpload": "2025-01-18"},
     #     {"documentName": "Doc 10", "positionName": "Position 5", "rating": "5/5", "timeOfUpload": "2025-01-18"},
     # ]
+=======
+    data = [
+    {"documentName": "Resume_Boeing", "positionName": "Software Engineer", "rating": "5/5", "timeOfUpload": "2025-01-01"},
+    {"documentName": "Cover_Letter_Microsoft", "positionName": "Data Analyst", "rating": "3/5", "timeOfUpload": "2025-01-02"},
+    {"documentName": "Cover_Letter_Boeing", "positionName": "Full Stack Software Developer", "rating": "4/5", "timeOfUpload": "2025-01-02"},
+    {"documentName": "Cover_Letter_Apple", "positionName": "Frontend Engineer", "rating": "4.5/5", "timeOfUpload": "2025-01-03"},
+    {"documentName": "Resume_Wealthsimple", "positionName": "Frontend Software Developer", "rating": "5/5", "timeOfUpload": "2025-01-05"},
+    {"documentName": "Cover_Letter_Salesforce", "positionName": "Backend Developer", "rating": "3.5/5", "timeOfUpload": "2025-01-08"},
+    {"documentName": "Resume_Meta", "positionName": "Software Engineer", "rating": "4/5", "timeOfUpload": "2025-01-10"},
+    {"documentName": "Cover_Letter_Paypal", "positionName": "Data Engineer", "rating": "4.5/5", "timeOfUpload": "2025-01-10"},
+    {"documentName": "Resume_Stripe", "positionName": "Data Analyst", "rating": "2/5", "timeOfUpload": "2025-01-12"},
+    {"documentName": "Cover_Letter_NVIDIA.", "positionName": "UI/UX Designer", "rating": "5/5", "timeOfUpload": "2025-01-18"}
+]
+>>>>>>> ef82dc0fb8099a6be26e7c5059021ee65ab69767
 
 
     # Pass data to the template
