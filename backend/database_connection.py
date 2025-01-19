@@ -6,7 +6,9 @@ import os
 
 db_router = APIRouter()
 
+#this comes from the submission
 class complete_user_json(BaseModel):
+    user_id: str
     user_name: str
     user_upload_time: str
     user_job_position: str
@@ -14,9 +16,13 @@ class complete_user_json(BaseModel):
     sentiment_metric: str
     ats_metric: str
 
+#this comes from login
 class userLogin(BaseModel):
     user_name: str
     password: str
+
+    def __hash__(self):
+        return hash((self.user_name, self.password))
 
 def get_mongo_client():
     CONNECTION_STRING = os.getenv("MONGO_CONNECTION_STR")
@@ -29,33 +35,27 @@ async def connect_to_db(request: Request, client: AsyncIOMotorClient = Depends(g
     user_inserted_document = request.query_params
     user_dict = dict(user_inserted_document)
 
-
-    print("entered try")
     db = client["res_db"]
     collection = db["ResuMaster"]
 
-    print("before find_one")
-    existing_user = await collection.find_one({"user_upload_time": user_inserted_document["user_upload_time"]}) #note: primary key is time_uploaded. this screws up if two people add with the same time
-    
+    existing_user = await collection.find_one({"user_id": user_inserted_document["user_id"]}) #note: primary key is now user_id (combo of name and password)
     
     if existing_user:
         raise HTTPException(409, "User already exists!")
 
-    print("before insert")
     await collection.insert_one(user_dict)
-    print("after insert")
 
     return {"result": user_inserted_document}
 
 @db_router.post("/generate_user_login")
-async def generate_login():
-    pass
+async def generate_login(user_login: userLogin):
+    return {"user_id": hash(userLogin)}
 
 @db_router.post("/retrieve_db_entries")
 async def get_db_entries(user : complete_user_json, client: AsyncIOMotorClient = Depends(get_mongo_client)):
 
     db = client["res_db"]
     collection = db["ResuMaster"]
-    exsiting_user = await collection.find_one()
+    # exsiting_user = await collection.find_one({"user_id": })
     
 
