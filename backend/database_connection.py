@@ -6,13 +6,17 @@ import os
 
 db_router = APIRouter()
 
-class user(BaseModel):
+class complete_user_json(BaseModel):
     user_name: str
     user_upload_time: str
     user_job_position: str
     keyword_metric: str
     sentiment_metric: str
     ats_metric: str
+
+class userLogin(BaseModel):
+    user_name: str
+    password: str
 
 def get_mongo_client():
     CONNECTION_STRING = os.getenv("MONGO_CONNECTION_STR")
@@ -48,7 +52,7 @@ async def generate_login():
     pass
 
 @db_router.post("/retrieve_db_entries")
-async def get_db_entries(user : user, client: AsyncIOMotorClient = Depends(get_mongo_client)):
+async def get_db_entries(user : complete_user_json, client: AsyncIOMotorClient = Depends(get_mongo_client)):
 
     db = client["res_db"]
     collection = db["ResuMaster"]
