@@ -1,8 +1,6 @@
 from fastapi import Request, APIRouter, HTTPException, Depends
 from pydantic import BaseModel
 from datetime import datetime
-from pymongo.mongo_client import MongoClient
-from pymongo.server_api import ServerApi
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 
@@ -10,7 +8,7 @@ db_router = APIRouter()
 
 class user(BaseModel):
     user_name: str
-    user_upload_time: datetime
+    user_upload_time: str
     user_job_position: str
     keyword_metric: str
     sentiment_metric: str
@@ -45,8 +43,12 @@ async def connect_to_db(request: Request, client: AsyncIOMotorClient = Depends(g
 
     return {"result": user_inserted_document}
 
+@db_router.post("/generate_user_login")
+async def generate_login():
+    pass
+
 @db_router.post("/retrieve_db_entries")
-async def get_db_entries(request: Request, client: AsyncIOMotorClient = Depends(get_mongo_client)):
+async def get_db_entries(user : user, client: AsyncIOMotorClient = Depends(get_mongo_client)):
 
     db = client["res_db"]
     collection = db["ResuMaster"]
