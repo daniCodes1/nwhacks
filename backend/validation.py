@@ -1,12 +1,10 @@
-
-from datetime import datetime
-import openai
 from pydantic import BaseModel
 from fastapi import FastAPI, Response
 from fastapi.responses import RedirectResponse
 from database_connection import db_router
 from urllib.parse import urlencode, quote_plus
 from email.utils import formatdate
+from datetime import datetime
 import uvicorn
 import os
 from dotenv import load_dotenv
@@ -57,8 +55,6 @@ async def process_json_object(response: Response, schema: schema_object):
     combined_json = json.dumps({ **user_json, **chat_response_obj})
     combined_json_obj = json.loads(combined_json)
 
-    # Set the cookie with the properly formatted expiration dat
-
     url_with_params = build_url_with_params("/upload_db", json_obj=combined_json_obj)
     return RedirectResponse(url_with_params)
 
@@ -73,7 +69,7 @@ async def ask_chat(job_position: str, job_description: str, cover_letter_text: s
             headers={"Authorization": f"Bearer {api_key}"},
             json={
                 "model": "gpt-3.5-turbo",
-                "messages": [{"role": "user", "content": f"Given this job for a {job_position}, identify the keywords in it and compute a ratio of how many keywords I use in my cover letter to the keywords identified in the job description. Now compute a score in percentage format, performing sentiment analysis if the language in my cover letter matches the job description appropriately. Also compute a percentage score for how ATS friendly my cover letter is inferring the ATS will use the job description as its main indicator. Put these results together in a json file with keys: \"key_word_metric\" for the keyword score, \"sentinment_metric\" for the sentiment score,  and \"ats_metric\" for the ats score.  No explanations just give me the json back.\n\n here is the job description: \n{job_description}\n\nand here is the cover letter text: \n{cover_letter_text}\n\n"}]
+                "messages": [{"role": "user", "content": f"Given this job for a {job_position}, identify the keywords in it and compute a percentage ratio of how many keywords I use in my cover letter to the keywords identified in the job description. Now compute a score in percentage format, performing sentiment analysis if the language in my cover letter matches the job description appropriately. Also compute a percentage score for how ATS friendly my cover letter is inferring the ATS will use the job description as its main indicator. Put these results together in a json file with keys: \"key_word_metric\" for the keyword score, \"sentinment_metric\" for the sentiment score,  and \"ats_metric\" for the ats score.  No explanations just give me the json back.\n\n here is the job description: \n{job_description}\n\nand here is the cover letter text: \n{cover_letter_text}\n\n"}]
             }
         )
         message_content = response.json()["choices"][0]["message"]["content"]
