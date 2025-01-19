@@ -1,6 +1,7 @@
 # app.py
 from flask import Flask, render_template, request
 from flask import jsonify
+import json
 
 app = Flask(__name__)
 
@@ -21,21 +22,45 @@ def handle_login():
 @app.route('/timeline')
 def timeline():
     # Get timeline data --> realistically we will end up getting the data from the backend
-    data = [
-        {"documentName": "Doc 1", "positionName": "Position 1", "rating": "5/5", "timeOfUpload": "2025-01-18"},
-        {"documentName": "Doc 2", "positionName": "Position 2", "rating": "4.5/5", "timeOfUpload": "2025-01-18"},
-        {"documentName": "Doc 3", "positionName": "Position 3", "rating": "4/5", "timeOfUpload": "2025-01-18"},
-        {"documentName": "Doc 4", "positionName": "Position 4", "rating": "4.5/5", "timeOfUpload": "2025-01-18"},
-        {"documentName": "Doc 5", "positionName": "Position 5", "rating": "5/5", "timeOfUpload": "2025-01-18"},
-        {"documentName": "Doc 6", "positionName": "Position 1", "rating": "5/5", "timeOfUpload": "2025-01-18"},
-        {"documentName": "Doc 7", "positionName": "Position 2", "rating": "4.5/5", "timeOfUpload": "2025-01-18"},
-        {"documentName": "Doc 8", "positionName": "Position 3", "rating": "4/5", "timeOfUpload": "2025-01-18"},
-        {"documentName": "Doc 9", "positionName": "Position 4", "rating": "4.5/5", "timeOfUpload": "2025-01-18"},
-        {"documentName": "Doc 10", "positionName": "Position 5", "rating": "5/5", "timeOfUpload": "2025-01-18"},
-    ]
+    # data = [
+    #     {"documentName": "Doc 1", "positionName": "Position 1", "rating": "5/5", "timeOfUpload": "2025-01-18"},
+    #     {"documentName": "Doc 2", "positionName": "Position 2", "rating": "4.5/5", "timeOfUpload": "2025-01-18"},
+    #     {"documentName": "Doc 3", "positionName": "Position 3", "rating": "4/5", "timeOfUpload": "2025-01-18"},
+    #     {"documentName": "Doc 4", "positionName": "Position 4", "rating": "4.5/5", "timeOfUpload": "2025-01-18"},
+    #     {"documentName": "Doc 5", "positionName": "Position 5", "rating": "5/5", "timeOfUpload": "2025-01-18"},
+    #     {"documentName": "Doc 6", "positionName": "Position 1", "rating": "5/5", "timeOfUpload": "2025-01-18"},
+    #     {"documentName": "Doc 7", "positionName": "Position 2", "rating": "4.5/5", "timeOfUpload": "2025-01-18"},
+    #     {"documentName": "Doc 8", "positionName": "Position 3", "rating": "4/5", "timeOfUpload": "2025-01-18"},
+    #     {"documentName": "Doc 9", "positionName": "Position 4", "rating": "4.5/5", "timeOfUpload": "2025-01-18"},
+    #     {"documentName": "Doc 10", "positionName": "Position 5", "rating": "5/5", "timeOfUpload": "2025-01-18"},
+    # ]
+
 
     # Pass data to the template
-    return render_template('timeline.html', timeline_data=data)
+    # return render_template('timeline.html', timeline_data=data)
+    fastapi_url = "http://127.0.0.1:8001/retrieve_db_entries"
+
+    # Define the payload with the required user_name
+    payload = {"user_name": "desired_user_name"}
+
+    try:
+        # Make a POST request to the FastAPI endpoint
+        response = request.post(fastapi_url, json=payload)
+        response.raise_for_status()  # Raise an exception for HTTP errors
+
+        # Extract the result from the JSON response
+        result = response.json().get("result", "[]")
+
+        # Convert the JSON string back to a Python list
+        timeline_data = json.loads(result)
+
+    except request.exceptions.RequestException as e:
+        # Handle any errors that occur during the request
+        print(f"An error occurred: {e}")
+        timeline_data = []
+
+    # Pass the data to the template
+    return render_template('timeline.html', timeline_data=timeline_data)
 
 
 # @app.route('/timeline')

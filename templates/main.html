@@ -294,7 +294,112 @@
             }
         }
 
+
+    function openDialog(responseData) {
+    // Extract the data
+    const { user_name, user_upload_time, user_job_position, key_word_metric, sentinment_metric, ats_metric } = responseData.result;
+        
+    
+    
+    const dialogHTML = `
+            <div id="dialog-box" style="
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Gradient background */
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        text-align: left;
+        width: 400px;
+        max-width: 90%;
+        font-family: 'Roboto', sans-serif;
+    ">
+        <h3 style="font-size: 24px; color: white; margin-bottom: 20px;">Submission Metrics</h3>
+        
+        <!-- Extract Date and Time -->
+        <p style="font-size: 16px; color: white; margin: 5px 0;">
+            <strong>Upload Date:</strong> ${new Date(user_upload_time).toLocaleDateString()}
+        </p>
+        <p style="font-size: 16px; color: white; margin: 5px 0;">
+            <strong>Upload Time:</strong> ${new Date(user_upload_time).toLocaleTimeString()}
+        </p>
+        
+        <!-- Table for Metrics -->
+        <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+            <tr>
+                <td style="font-size: 16px; color: white; padding: 5px; border-bottom: 1px solid #ddd;"><strong>Name:</strong></td>
+                <td style="font-size: 16px; color: white; padding: 5px; border-bottom: 1px solid #ddd;">${user_name}</td>
+            </tr>
+            <tr>
+                <td style="font-size: 16px; color: white; padding: 5px; border-bottom: 1px solid #ddd;"><strong>Job Position:</strong></td>
+                <td style="font-size: 16px; color: white; padding: 5px; border-bottom: 1px solid #ddd;">${user_job_position}</td>
+            </tr>
+            <tr>
+                <td style="font-size: 16px; color: white; padding: 5px; border-bottom: 1px solid #ddd;"><strong>Key Word Metric:</strong></td>
+                <td style="font-size: 16px; color: white; padding: 5px; border-bottom: 1px solid #ddd;">${key_word_metric}</td>
+            </tr>
+            <tr>
+                <td style="font-size: 16px; color: white; padding: 5px; border-bottom: 1px solid #ddd;"><strong>Sentiment Metric:</strong></td>
+                <td style="font-size: 16px; color: white; padding: 5px; border-bottom: 1px solid #ddd;">${sentinment_metric}</td>
+            </tr>
+            <tr>
+                <td style="font-size: 16px; color: white; padding: 5px; border-bottom: 1px solid #ddd;"><strong>ATS Metric:</strong></td>
+                <td style="font-size: 16px; color: white; padding: 5px; border-bottom: 1px solid #ddd">${ats_metric}</td>
+            </tr>
+        </table>
+
+        <div id="suggestions" style="margin-top: 20px; color: white;">
+            ${key_word_metric < 0.5 ? `
+                <div style="font-size: 14px; padding: 10px; background-color: rgba(255, 255, 255, 0.2); margin-bottom: 10px;">
+                    <strong>Keyword Suggestion:</strong> Make your document more in line with the job description. Take keywords from the job description and ensure they are present in your document.
+                </div>
+            ` : ''}
+            ${sentinment_metric < 0.5 ? `
+                <div style="font-size: 14px; padding: 10px; background-color: rgba(255, 255, 255, 0.2); margin-bottom: 10px;">
+                    <strong>Sentiment Suggestion:</strong> Consider adjusting the tone of your document to make it more positive and aligned with the job requirements.
+                </div>
+            ` : ''}
+            ${ats_metric < 0.5 ? `
+                <div style="font-size: 14px; padding: 10px; background-color: rgba(255, 255, 255, 0.2);">
+                    <strong>ATS Suggestion:</strong> Ensure your document is formatted in a way that is ATS-friendly, such as using standard headings and a clear structure.
+                </div>
+            ` : ''}
+        </div>
+        
+        <button onclick="closeDialog()" style="
+            margin-top: 20px;
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            border-top: 1px solid #ddd;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        ">
+            Close
+        </button>
+    </div>
+    <div id="dialog-overlay" style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 999;
+    "></div>
+        `;
+                document.body.insertAdjacentHTML("beforeend", dialogHTML);       
+                
+    }
         async function submitData() {
+            console.log("Submit data has been hit");
             jobDescription = document.getElementById("job-description").value.trim();
             const resume = document.getElementById("resume").value.trim();
             const userName = name;
@@ -338,6 +443,7 @@
 
          if (response.ok) {
             const responseData = await response.json();
+            openDialog(responseData);
             alert("Data submitted successfully!");
             console.log(responseData);
         } else {

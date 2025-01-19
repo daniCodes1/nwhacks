@@ -31,7 +31,6 @@ class user_submission(BaseModel):
 load_dotenv()
 
 
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Or restrict to specific origins, e.g., ["http://127.0.0.1:5500"]
