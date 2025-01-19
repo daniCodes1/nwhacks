@@ -35,16 +35,16 @@ def timeline():
     #     {"documentName": "Doc 10", "positionName": "Position 5", "rating": "5/5", "timeOfUpload": "2025-01-18"},
     # ]
     data = [
-    {"documentName": "Resume_Boeing", "positionName": "Software Engineer", "rating": "5/5", "timeOfUpload": "2025-01-01"},
-    {"documentName": "Cover_Letter_Microsoft", "positionName": "Data Analyst", "rating": "3/5", "timeOfUpload": "2025-01-02"},
-    {"documentName": "Cover_Letter_Boeing", "positionName": "Full Stack Software Developer", "rating": "4/5", "timeOfUpload": "2025-01-02"},
-    {"documentName": "Cover_Letter_Apple", "positionName": "Frontend Engineer", "rating": "4.5/5", "timeOfUpload": "2025-01-03"},
-    {"documentName": "Resume_Wealthsimple", "positionName": "Frontend Software Developer", "rating": "5/5", "timeOfUpload": "2025-01-05"},
-    {"documentName": "Cover_Letter_Salesforce", "positionName": "Backend Developer", "rating": "3.5/5", "timeOfUpload": "2025-01-08"},
-    {"documentName": "Resume_Meta", "positionName": "Software Engineer", "rating": "4/5", "timeOfUpload": "2025-01-10"},
-    {"documentName": "Cover_Letter_Paypal", "positionName": "Data Engineer", "rating": "4.5/5", "timeOfUpload": "2025-01-10"},
-    {"documentName": "Resume_Stripe", "positionName": "Data Analyst", "rating": "2/5", "timeOfUpload": "2025-01-12"},
-    {"documentName": "Cover_Letter_NVIDIA.", "positionName": "UI/UX Designer", "rating": "5/5", "timeOfUpload": "2025-01-18"}
+    {"documentName": "Resume_Boeing", "positionName": "Software Engineer", "rating": "100%", "timeOfUpload": "2025-01-19"},
+    {"documentName": "Cover_Letter_Microsoft", "positionName": "Data Analyst", "rating": "90%", "timeOfUpload": "2025-01-17"},
+    {"documentName": "Cover_Letter_Boeing", "positionName": "Full Stack Software Developer", "rating": "60%", "timeOfUpload": "2025-01-17"},
+    {"documentName": "Cover_Letter_Apple", "positionName": "Frontend Engineer", "rating": "86%", "timeOfUpload": "2025-01-10"},
+    {"documentName": "Resume_Wealthsimple", "positionName": "Frontend Software Developer", "rating": "82%", "timeOfUpload": "2025-01-09"},
+    {"documentName": "Cover_Letter_Salesforce", "positionName": "Backend Developer", "rating": "70%", "timeOfUpload": "2025-01-08"},
+    {"documentName": "Resume_Meta", "positionName": "Software Engineer", "rating": "59%", "timeOfUpload": "2025-01-08"},
+    {"documentName": "Cover_Letter_Paypal", "positionName": "Data Engineer", "rating": "20%", "timeOfUpload": "2025-01-02"},
+    {"documentName": "Resume_Stripe", "positionName": "Data Analyst", "rating": "47%", "timeOfUpload": "2025-01-02"},
+    {"documentName": "Cover_Letter_NVIDIA.", "positionName": "UI/UX Designer", "rating": "51%", "timeOfUpload": "2025-01-01"}
 ]
 
 
