@@ -22,20 +22,6 @@ def handle_login():
 @app.route('/timeline')
 def timeline():
     # Get timeline data --> realistically we will end up getting the data from the backend
-<<<<<<< HEAD
-    # data = [
-    #     {"documentName": "Doc 1", "positionName": "Position 1", "rating": "5/5", "timeOfUpload": "2025-01-18"},
-    #     {"documentName": "Doc 2", "positionName": "Position 2", "rating": "4.5/5", "timeOfUpload": "2025-01-18"},
-    #     {"documentName": "Doc 3", "positionName": "Position 3", "rating": "4/5", "timeOfUpload": "2025-01-18"},
-    #     {"documentName": "Doc 4", "positionName": "Position 4", "rating": "4.5/5", "timeOfUpload": "2025-01-18"},
-    #     {"documentName": "Doc 5", "positionName": "Position 5", "rating": "5/5", "timeOfUpload": "2025-01-18"},
-    #     {"documentName": "Doc 6", "positionName": "Position 1", "rating": "5/5", "timeOfUpload": "2025-01-18"},
-    #     {"documentName": "Doc 7", "positionName": "Position 2", "rating": "4.5/5", "timeOfUpload": "2025-01-18"},
-    #     {"documentName": "Doc 8", "positionName": "Position 3", "rating": "4/5", "timeOfUpload": "2025-01-18"},
-    #     {"documentName": "Doc 9", "positionName": "Position 4", "rating": "4.5/5", "timeOfUpload": "2025-01-18"},
-    #     {"documentName": "Doc 10", "positionName": "Position 5", "rating": "5/5", "timeOfUpload": "2025-01-18"},
-    # ]
-=======
     data = [
     {"documentName": "Resume_Boeing", "positionName": "Software Engineer", "rating": "5/5", "timeOfUpload": "2025-01-01"},
     {"documentName": "Cover_Letter_Microsoft", "positionName": "Data Analyst", "rating": "3/5", "timeOfUpload": "2025-01-02"},
@@ -48,7 +34,6 @@ def timeline():
     {"documentName": "Resume_Stripe", "positionName": "Data Analyst", "rating": "2/5", "timeOfUpload": "2025-01-12"},
     {"documentName": "Cover_Letter_NVIDIA.", "positionName": "UI/UX Designer", "rating": "5/5", "timeOfUpload": "2025-01-18"}
 ]
->>>>>>> ef82dc0fb8099a6be26e7c5059021ee65ab69767
 
 
     # Pass data to the template

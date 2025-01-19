@@ -294,6 +294,15 @@
             }
         }
 
+    function closeDialog() {
+        // Remove the dialog box and overlay from the DOM
+        const dialogBox = document.getElementById("dialog-box");
+        const dialogOverlay = document.getElementById("dialog-overlay");
+
+        if (dialogBox) dialogBox.remove();
+        if (dialogOverlay) dialogOverlay.remove();
+    }
+
 
     function openDialog(responseData) {
     // Extract the data
