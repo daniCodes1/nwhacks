@@ -329,21 +329,29 @@
             };
 
             try {
-                const response = await fetch("/upload", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            });
+            const response = await fetch("http://127.0.0.1:8080/upload", {
+            mode: "no-cors",
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
 
+         if (response.ok) {
             const responseData = await response.json();
             alert("Data submitted successfully!");
             console.log(responseData);
-            } catch (error) {
-            console.error("Error submitting data:", error);
-            }
+        } else {
+           
+            const errorText = await response.text();
+            alert(`Error submitting data: ${errorText}`);
         }
+        } catch (error) {
+            console.error("Error submitting data:", error);
+            alert("An error occurred while submitting the data. Please try again.");
+        }
+    }
 
         
 
