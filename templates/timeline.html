@@ -116,14 +116,14 @@
         {% endfor %}
     </div>
 
-    <!-- Popup -->
     <div class="popup" id="popup">
-        <p id="popup-document-name"></p>
-        <p id="popup-position-name"></p>
-        <p id="popup-rating"></p>
-        <p id="popup-time-of-upload"></p>
+        <p><strong>Document Name:</strong> <span id="popup-document-name"></span></p>
+        <p><strong>Position Name:</strong> <span id="popup-position-name"></span></p>
+        <p><strong>Rating:</strong> <span id="popup-rating"></span></p>
+        <p><strong>Time of Upload:</strong> <span id="popup-time-of-upload"></span></p>
         <button class="close-btn" onclick="closePopup()">Close</button>
     </div>
+    
 
     <script>
         const dots = document.querySelectorAll('.timeline-dot');
@@ -134,31 +134,32 @@
         const popupTimeOfUpload = document.getElementById('popup-time-of-upload');
 
         dots.forEach(dot => {
-            dot.addEventListener('click', () => {
-                const info = JSON.parse(dot.getAttribute('data-info'));
+    dot.addEventListener('click', () => {
+        const info = JSON.parse(dot.getAttribute('data-info'));
 
-                popupDocumentName.textContent = `Document Name: ${info.documentName}`;
-                popupPositionName.textContent = `Position Name: ${info.positionName}`;
-                popupRating.textContent = `Rating: ${info.rating}`;
-                popupTimeOfUpload.textContent = `Time of Upload: ${info.timeOfUpload}`;
+        popupDocumentName.textContent = info.documentName;
+        popupPositionName.textContent = info.positionName;
+        popupRating.textContent = info.rating;
+        popupTimeOfUpload.textContent = info.timeOfUpload;
 
-                const dotRect = dot.getBoundingClientRect();
-                const popupWidth = popup.offsetWidth;
-                const popupHeight = popup.offsetHeight;
-                const dotCenter = dotRect.left + (dotRect.width / 2);
+        const dotRect = dot.getBoundingClientRect();
+        const popupWidth = popup.offsetWidth;
+        const popupHeight = popup.offsetHeight;
+        const dotCenter = dotRect.left + (dotRect.width / 2);
 
-                let leftOffset = dotCenter - (popupWidth / 2);
-                let topOffset = dotRect.top - popupHeight - 10;
+        let leftOffset = dotCenter - (popupWidth / 2);
+        let topOffset = dotRect.top - popupHeight - 10;
 
-                if (leftOffset < 10) leftOffset = 10;
-                if (leftOffset + popupWidth > window.innerWidth) leftOffset = window.innerWidth - popupWidth - 10;
-                if (topOffset < 0) topOffset = dotRect.bottom + 10;
+        if (leftOffset < 10) leftOffset = 10;
+        if (leftOffset + popupWidth > window.innerWidth) leftOffset = window.innerWidth - popupWidth - 10;
+        if (topOffset < 0) topOffset = dotRect.bottom + 10;
 
-                popup.style.left = `${leftOffset}px`;
-                popup.style.top = `${topOffset}px`;
-                popup.style.display = 'block';
-            });
-        });
+        popup.style.left = `${leftOffset}px`;
+        popup.style.top = `${topOffset}px`;
+        popup.style.display = 'block';
+    });
+});
+
 
         function closePopup() {
             popup.style.display = 'none';
