@@ -23,7 +23,6 @@ class text_content(BaseModel):
     cover_letter: str
 
 class user_submission(BaseModel):
-    user_id: str
     name: str
     time_of_upload: str
     job_position: str
@@ -47,7 +46,6 @@ async def process_json_object(response: Response, schema: user_submission):
     chat_response = await ask_chat(job_position=schema.job_position, job_description=schema.text_content.job_description, cover_letter_text=schema.text_content.cover_letter)
     #responds with metrics json
     user_json = {} 
-    user_json['user_id'] = schema.user_id
     user_json['user_name'] = schema.name
     user_json['user_upload_time'] = schema.time_of_upload
     user_json['user_job_position'] = schema.job_position
