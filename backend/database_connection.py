@@ -8,18 +8,21 @@ import os
 import json
 
 db_router = APIRouter()
-USER_NAME = "Michael"
-#this comes from the submission
-class complete_user_json(BaseModel):
-    user_name: str
-    user_upload_time: str
-    user_job_position: str
-    key_word_metric: str
-    sentiment_metric: str
-    ats_metric: str
+# USER_NAME = "Michael"
+# #this comes from the submission
+# class complete_user_json(BaseModel):
+#     user_name: str
+#     user_upload_time: str
+#     user_job_position: str
+#     key_word_metric: str
+#     sentiment_metric: str
+#     ats_metric: str
 
-    def __hash__(self):
-        return hash((self.user_name, self.password))
+#     def __hash__(self):
+#         return hash((self.user_name, self.password))
+
+class user_name(BaseModel):
+    user_name: str
 
 def get_mongo_client():
     CONNECTION_STRING = os.getenv("MONGO_CONNECTION_STR")
@@ -54,11 +57,11 @@ def string_to_datetime(date_string):
     date_format = "%Y-%m-%d %H:%M"
     return datetime.strptime(date_string, date_format)
 
-@db_router.get("/retrieve_db_entries")
-async def get_db_entries(client: AsyncIOMotorClient = Depends(get_mongo_client)):
+@db_router.post("/retrieve_db_entries")
+async def get_db_entries(user_name: user_name, client: AsyncIOMotorClient = Depends(get_mongo_client)):
     db = client["res_db"]
     collection = db["ResuMaster"]
-    users_with_name = await collection.find({"user_name": USER_NAME}).to_list(None)
+    users_with_name = await collection.find({"user_name": user_name.user_name}).to_list(None)
     serialized_users = [jsonable_encoder(user, custom_encoder={ObjectId: serialize_objectid}) for user in users_with_name]
 
     serialized_users.sort(key = lambda user: string_to_datetime(user["user_upload_time"]))
