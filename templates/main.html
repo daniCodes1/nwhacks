@@ -352,7 +352,7 @@
             </tr>
             <tr>
                 <td style="font-size: 16px; color: white; padding: 5px; border-bottom: 1px solid #ddd;"><strong>Sentiment Metric:</strong></td>
-                <td style="font-size: 16px; color: white; padding: 5px; border-bottom: 1px solid #ddd;">${sentinment_metric}</td>
+                <td style="font-size: 16px; color: white; padding: 5px; border-bottom: 1px solid #ddd;">${sentinment_metric ?? 0}</td>
             </tr>
             <tr>
                 <td style="font-size: 16px; color: white; padding: 5px; border-bottom: 1px solid #ddd;"><strong>ATS Metric:</strong></td>
@@ -430,7 +430,7 @@
             const data = {
                 "name": "adrian",
                 "time_of_upload": timestamp,
-                "job_position": "software engineer",
+                "job_position": "Software Engineer",
         
                 "text_content": {
                     "type_of_document": documentType.value,
