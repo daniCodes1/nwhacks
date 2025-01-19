@@ -3,8 +3,7 @@ from fastapi import FastAPI, Response
 from fastapi.responses import RedirectResponse
 from database_connection import db_router
 from urllib.parse import urlencode, quote_plus
-from email.utils import formatdate
-from datetime import datetime
+from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 import os
 from dotenv import load_dotenv
@@ -26,10 +25,20 @@ class user_submission(BaseModel):
     name: str
     time_of_upload: str
     job_position: str
-    text_content:text_content
+    text_content: text_content
 
 
 load_dotenv()
+
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Or restrict to specific origins, e.g., ["http://127.0.0.1:5500"]
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allow all headers
+)
 
 
 def build_url_with_params(base_url, json_obj):
@@ -42,7 +51,7 @@ def build_url_with_params(base_url, json_obj):
 
 
 @app.post("/upload")
-async def process_json_object(response: Response, schema: user_submission):
+async def process_json_object(schema: user_submission):
     chat_response = await ask_chat(job_position=schema.job_position, job_description=schema.text_content.job_description, cover_letter_text=schema.text_content.cover_letter)
     #responds with metrics json
     user_json = {} 

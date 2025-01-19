@@ -299,11 +299,8 @@
             const resume = document.getElementById("resume").value.trim();
             const userName = name;
             const preferences = Array.from(document.getElementById("preferences").children).map(child => child.id);
-            const timestamp = new Date().toString();
+            const timestamp = new Date().toISOString()
             const documentType = document.querySelector('input[name="document-type"]:checked');
-
-
-        
        
         
             if (!documentType) {
@@ -317,24 +314,25 @@
             }
 
             const data = {
-                "name": userName,
+                "name": "adrian",
                 "time_of_upload": timestamp,
                 "job_position": "software engineer",
         
                 "text_content": {
-                    "job_description": jobDescription,
                     "type_of_document": documentType.value,
+                    "job_description": jobDescription,
                     "cover_letter": resume
                 }
             };
 
             try {
-            const response = await fetch("http://127.0.0.1:8080/upload", {
-            mode: "no-cors",
+            const response = await fetch("http://127.0.0.1:8001/upload", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
-            },
+            "Content-Type": "application/json",
+            "Accept": "*/*",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Connection": "keep-alive"},
             body: JSON.stringify(data)
         });
 
